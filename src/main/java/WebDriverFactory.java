@@ -6,27 +6,31 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class WebDriverFactory {
 
-    public static WebDriver create(String webDriverName) {
-        return create(webDriverName, null);
+    public static WebDriver create(BrowserType webDriverName) {
+        return create(webDriverName, new MutableCapabilities());
     }
 
-    public static WebDriver create(String webDriverName, MutableCapabilities options) {
+    public static WebDriver create(BrowserType webDriverName, MutableCapabilities options) {
 
         WebDriver driver = null;
 
-        switch (BrowserType.valueOf(webDriverName.toUpperCase())) {
+        switch (webDriverName) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                driver = options != null ? new ChromeDriver((ChromeOptions) options) : new ChromeDriver();
-                break;
+                return new ChromeDriver((ChromeOptions) options);
 
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
-                driver = options != null ? new FirefoxDriver((FirefoxOptions) options) : new FirefoxDriver();
-                break;
+                return new FirefoxDriver((FirefoxOptions) options);
+
+            default:
+                throw new InvalidParameterException("No such browser found!");
         }
-        return driver;
     }
 }
