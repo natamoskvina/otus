@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.net.MalformedURLException;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +24,10 @@ public class WebDriverFactory {
         switch (webDriverName) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                return new ChromeDriver((ChromeOptions) options);
-
+                return new ChromeDriver(new ChromeOptions().merge(options));
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver((FirefoxOptions) options);
-
+                return new FirefoxDriver(new FirefoxOptions().merge(options));
             default:
                 throw new InvalidParameterException("No such browser found!");
         }
