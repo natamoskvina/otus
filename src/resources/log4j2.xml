@@ -4,7 +4,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%highlight{%d [%t] %-5level: %msg%n%throwable}"/>
         </Console>
-        <RollingRandomAccessFile name="File" filename="logs/test.log" filePattern="logs/test.log.%d{yyyy-MM-dd}">
+        <RollingRandomAccessFile name="File" filename="target/logs/test.log" filePattern="target/logs/test.log.%d{yyyy-MM-dd}">
             <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
