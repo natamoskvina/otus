@@ -15,31 +15,30 @@ public class Lesson6Test extends BrowserSetupTest {
 
         logger.info("Selecting Xiaomi and HUAWEI");
         wait.until(visibilityOfElementLocated(By.className("n-snippet-cell2__title")));
-        String firstProductInList = driver.findElement(By.cssSelector(".n-snippet-cell2__title a")).getAttribute("title");
         wait.until(visibilityOfElementLocated(By.xpath("//*[@name='Производитель Xiaomi']/following-sibling::div/span")))
                 .click();
         wait.until(visibilityOfElementLocated(By.xpath("//*[@name='Производитель HUAWEI']/following-sibling::div/span")))
                 .click();
 
         logger.info("Ordering by price");
-        firstProductInList = driver.findElement(By.cssSelector(".n-snippet-cell2__title a")).getAttribute("title");
+        String firstProductInList = driver.findElement(By.xpath("//*[contains(@class, 'n-snippet-cell2__title')]//a")).getAttribute("title");
         driver.findElement(By.className("n-filter-panel-dropdown__main")).findElement(By.linkText("по цене")).click();
-        wait.until(and(invisibilityOfElementLocated(By.cssSelector(".n-snippet-cell2__title a[title = '" + firstProductInList + "']")),
+        wait.until(and(invisibilityOfElementLocated(By.xpath("//*[contains(@class, 'n-snippet-cell2__title')]//a[@title = '" + firstProductInList + "']")),
                 invisibilityOfElementLocated(By.className("preloadable__preloader"))));
 
         logger.info("Adding Xiaomi phone to comparison");
-        String XiaomiPhoneName = driver.findElement(By.cssSelector("img[title *= 'Смартфон Xiaomi']"))
+        String XiaomiPhoneName = driver.findElement(By.xpath("//img[contains(@title, 'Смартфон Xiaomi')]"))
                 .getAttribute("title");
         driver.findElement(By.xpath("//a[contains(@title, 'Смартфон Xiaomi')]/..//i[contains(@class, 'image_name_compare')]"))
                 .click();
-        wait.until(driver -> driver.findElement(By.className("popup-informer__title")).getText()
-                .equals("Товар " + XiaomiPhoneName + " добавлен к сравнению"));
+        wait.until(and(visibilityOfElementLocated(By.className("popup-informer__title")),
+                driver -> driver.findElement(By.className("popup-informer__title")).getText()
+                .equals("Товар " + XiaomiPhoneName + " добавлен к сравнению")));
 
         wait.until(ExpectedConditions.elementToBeClickable(By.className("popup-informer__close"))).click();
 
         logger.info("Adding Huawei phone to comparison");
-
-        String HuaweiPhoneName = driver.findElement(By.cssSelector("img[title *= 'Смартфон HUAWEI']"))
+        String HuaweiPhoneName = driver.findElement(By.xpath("//img[contains(@title, 'Смартфон HUAWEI')]"))
                 .getAttribute("title");
         driver.findElement(By.xpath("//a[contains(@title, 'Смартфон HUAWEI')]/..//i[contains(@class, 'image_name_compare')]"))
                 .click();
@@ -47,8 +46,9 @@ public class Lesson6Test extends BrowserSetupTest {
                 .equals("Товар " + HuaweiPhoneName + " добавлен к сравнению"));
 
         logger.info("Opening Compare page");
-        driver.findElement(By.cssSelector(".popup-informer__pane a.button")).click();
-        wait.until(drv -> drv.findElements(By.cssSelector(".n-compare-content__line .n-compare-cell")).size() == 2);
+        driver.findElement(By.xpath("//*[contains(@class, 'popup-informer__pane')]//a[contains(@class, 'button')]")).click();
+        wait.until(drv -> drv.findElements(
+                By.xpath("//*[contains(@class, 'n-compare-content__line')]//*[contains(@class, 'n-compare-cell')]")).size() == 2);
 
         logger.info("Opening all characteristics");
         driver.findElement(By.className("n-compare-show-controls__all")).click();
