@@ -19,7 +19,7 @@ public class BrowserSetupTest {
         wait = new WebDriverWait(driver, 30);
     }
 
-    @AfterTest
+//    @AfterTest
     public void teardown() {
         if (driver != null) {
             logger.info("Closing webdriver");
