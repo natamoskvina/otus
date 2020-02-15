@@ -1,5 +1,4 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -35,7 +34,7 @@ public class Lesson6Test extends BrowserSetupTest {
                 driver -> driver.findElement(By.className("popup-informer__title")).getText()
                 .equals("Товар " + XiaomiPhoneName + " добавлен к сравнению")));
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("popup-informer__close"))).click();
+        wait.until(elementToBeClickable(By.className("popup-informer__close"))).click();
 
         logger.info("Adding Huawei phone to comparison");
         String HuaweiPhoneName = driver.findElement(By.xpath("//img[contains(@title, 'Смартфон HUAWEI')]"))
