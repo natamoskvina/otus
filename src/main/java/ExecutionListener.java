@@ -1,13 +1,25 @@
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.Logger;
 import org.influxdb.dto.Point;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ExecutionListener implements ITestListener {
 
-    public void onTestStart(ITestResult iTestResult) {
+    private static final String OUTPUT_FOLDER = "target/screenshots/";
+    private static final String FILE_NAME = "ErrorScreenshot.png";
+    private WebDriver driver;
+    private Logger logger;
 
+    public void onTestStart(ITestResult iTestResult) {
     }
 
     public void onTestSuccess(ITestResult iTestResult) {
@@ -15,7 +27,22 @@ public class ExecutionListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        this.sendTestMethodStatus(iTestResult, "FAIL");
+//        this.sendTestMethodStatus(iTestResult, "FAIL");
+        ITestContext context = iTestResult.getTestContext();
+        driver = (WebDriver) context.getAttribute("driver");
+        logger = (Logger) context.getAttribute("logger");
+        logger.error("Error on page " + driver.getCurrentUrl()
+                + "\n Error message: " + iTestResult.getThrowable().getMessage());
+        takeScreenshot(driver);
+    }
+
+    private void takeScreenshot(WebDriver driver) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File(FILE_NAME));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
@@ -31,7 +58,7 @@ public class ExecutionListener implements ITestListener {
     }
 
     public void onFinish(ITestContext iTestContext) {
-        this.sendTestClassStatus(iTestContext);
+//        this.sendTestClassStatus(iTestContext);
     }
 
     private void sendTestMethodStatus(ITestResult iTestResult, String status) {
