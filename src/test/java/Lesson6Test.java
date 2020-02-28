@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class Lesson6Test extends BrowserSetupTest {
+public class Lesson6Test extends BrowserSetup {
 
     @Test
     public void yandexTest() {
