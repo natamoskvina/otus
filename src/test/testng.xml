@@ -2,18 +2,18 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite">
     <listeners>
-        <listener class-name="ExecutionListener" />
+        <listener class-name="base.ExecutionListener" />
     </listeners>
     <test name="Test-Chrome">
         <classes>
-            <class name="BrowserSetupTest"/>
+            <class name="BrowserSetup"/>
         </classes>
     </test>
 
    <test name="Test-Firefox">
 		<parameter name="browser" value="firefox"/>
 		<classes>
-			<class name="BrowserSetupTest"/>
+			<class name="BrowserSetup"/>
 		</classes>
 	</test>
 </suite>
