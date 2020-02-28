@@ -9,7 +9,7 @@ public class LoginPage extends AbstractPage {
     private By loginModal = By.cssSelector("[data-modal-id='new-log-reg']");
     private By emailInput = By.className("js-email-input");
     private By passwordInput = By.className("js-psw-input");
-    private By loginButton = By.cssSelector("form.js-login button[type='submit']");
+    private By loginButton = By.xpath("//form[contains(@class, 'js-login')]//button[@type='submit']");
 
     public LoginPage(WebDriver driver) {
         super(driver);

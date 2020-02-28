@@ -10,13 +10,13 @@ public class UserAccountPage extends AbstractPage {
     private HeaderMenu headerMenu;
 
     private By personalInfoLink = By.xpath("//*[@class='nav__items']/a[contains(@href, 'personal')]");
+    private By personalInfoForm = By.xpath("//form[contains(@action, 'personal')]");
     private By firstnameInput = By.id("id_fname");
     private By lastnameInput = By.id("id_lname");
     private By countryDropdown = By.xpath("//*[@name='country']/following-sibling::div");
     private By countryList = By.className("lk-cv-block__select-scroll_country");
     private By cityDropdown = By.xpath("//*[@name='city']/following-sibling::div");
     private By cityList = By.className("lk-cv-block__select-scroll_city");
-
     private By saveButton = By.xpath("//*[@class = 'lk-cv-action-buttons']/*[@name='continue']");
 
     public UserAccountPage(WebDriver driver) {
@@ -31,7 +31,7 @@ public class UserAccountPage extends AbstractPage {
 
     public UserAccountPage goToPersonalInfoSection() {
         driver.findElement(personalInfoLink).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[contains(@action, 'personal')]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(personalInfoForm));
         return this;
     }
 
@@ -50,7 +50,7 @@ public class UserAccountPage extends AbstractPage {
     public UserAccountPage selectCountry(String country) {
         driver.findElement(countryDropdown).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(countryList));
-        driver.findElement(By.cssSelector("button.lk-cv-block__select-option[title='" + country + "']")).click();
+        driver.findElement(By.xpath("//button[contains(@class, 'lk-cv-block__select-option') and @title='" + country + "']")).click();
         wait.until((d) -> d.findElement(By.name("city")).isEnabled());
         return this;
     }
@@ -58,12 +58,13 @@ public class UserAccountPage extends AbstractPage {
     public UserAccountPage selectCity(String city) {
         driver.findElement(cityDropdown).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(cityList));
-        driver.findElement(By.cssSelector("button.lk-cv-block__select-option[title='" + city + "']")).click();
+        driver.findElement(By.xpath("//button[contains(@class, 'lk-cv-block__select-option') and @title='" + city + "']")).click();
         return this;
     }
 
     public UserAccountPage saveChanges() {
         driver.findElement(saveButton).click();
+        wait.until((d) -> d.findElements(personalInfoForm).size() == 0);
         return this;
     }
 

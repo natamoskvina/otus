@@ -3,7 +3,7 @@ package otusPages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AbstractPage {
+public abstract class AbstractPage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -12,4 +12,6 @@ public class AbstractPage {
         this.driver = driver;
         wait = new WebDriverWait(driver, 20);
     }
+
+    public abstract AbstractPage waitUntilRendered();
 }

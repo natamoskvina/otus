@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class HomePage extends AbstractPage {
 
     private HeaderMenu headerMenu;
-
     private String baseUrl = "https://otus.ru/";
 
     public HomePage(WebDriver driver) {
