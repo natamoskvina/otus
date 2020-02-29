@@ -2,7 +2,6 @@ package otusPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderMenu extends AbstractPage {
@@ -38,8 +37,7 @@ public class HeaderMenu extends AbstractPage {
     }
 
     private void selectOptionFromRightDropdown(By dropdownOption) {
-        Actions action = new Actions(driver);
-        action.moveToElement(driver.findElement(username)).perform();
+        driver.findElement(username).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(userDropdown));
         driver.findElement(dropdownOption).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(userDropdown));

@@ -65,7 +65,7 @@ public class UserAccountPage extends AbstractPage {
     public UserAccountPage saveChanges() {
         driver.findElement(saveButton).click();
         wait.until((d) -> d.findElements(personalInfoForm).size() == 0);
-        return this;
+        return new UserAccountPage(driver).waitUntilRendered();
     }
 
     public HomePage logout() {
