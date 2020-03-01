@@ -1,3 +1,5 @@
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import otusPages.HomePage;
@@ -7,10 +9,8 @@ import otusPages.UserAccountPage;
 public class PageObjectTests extends BrowserSetup {
 
     @Test
-    public void personalInfoIsSaved() {
-
-        String email = "natamoskvina01@yandex.ru";
-        String password = "Abc12345";
+    @Parameters({"email", "password"})
+    public void personalInfoIsSaved(@Optional("natamoskvina01@yandex.ru") String email, @Optional ("Abc12345") String password) {
 
         logger.info("Starting the test");
         logger.info("Opening Otus homepage");

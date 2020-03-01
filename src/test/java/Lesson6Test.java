@@ -5,7 +5,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Lesson6Test extends BrowserSetup {
 
-    @Test
+//    @Test
     public void yandexTest() {
         logger.info("Starting the test");
         logger.info("Opening market.yandex.ru");
