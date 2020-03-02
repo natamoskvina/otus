@@ -30,7 +30,7 @@ public class WebCrawler {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		logger.info("Creating webdriver");
-		WebDriver driver = Helper.driverSetupTest("chrome");
+		WebDriver driver = Helper.driverSetup("chrome");
 
 		Map<String, String> carMakesLinks = getCarMakes(driver);
 		Set<String> carAdsLinks = getCarAdsLinks(driver, carMakesLinks);
@@ -169,7 +169,7 @@ public class WebCrawler {
 
 	private static WebDriver recreateDriver() {
 		logger.info("Re-creating webdriver");
-		return Helper.driverSetupTest("chrome");
+		return Helper.driverSetup("chrome");
 	}
 
 	private static void scrollToTheEndOfPage(WebDriver driver) {
